@@ -56,6 +56,11 @@ win32 {
     include(deps/chroma/chroma.pri)
 }
 
+# Luminati SDK
+win32 {
+    include(deps/lum_sdk/luminati.pri)
+}
+
 QT += widgets
 
 # TODO: if def WEBENGINE
@@ -68,6 +73,7 @@ SOURCES += main.cpp \
     screensaver.cpp \
     autoupdater.cpp \
     razerchroma.cpp \
+    luminati.cpp \
     qclipboardproxy.cpp \
     verifysig.c
 
@@ -86,6 +92,7 @@ HEADERS += \
     mainapplication.h \
     autoupdater.h \
     razerchroma.h \
+    luminati.h \
     qclipboardproxy.h \
     verifysig.h \
     publickey.h

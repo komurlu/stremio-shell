@@ -29,6 +29,8 @@ typedef QApplication Application;
 #include <QGuiApplication>
 #endif
 
+#include "luminati.h"
+
 void InitializeParameters(QQmlApplicationEngine& engine, MainApp& app) {
     QQmlContext *ctx = engine.rootContext();
 
@@ -51,7 +53,7 @@ void CrashHandler(){
 
 int main(int argc, char **argv)
 {
-    #if defined(DESKTOP) && !defined(QT_DEBUG)
+	#if defined(DESKTOP) && !defined(QT_DEBUG)
     CrashHandler();
     #endif
 
@@ -87,6 +89,7 @@ int main(int argc, char **argv)
     qmlRegisterType<ScreenSaver>("com.stremio.screensaver", 1, 0, "ScreenSaver");
     qmlRegisterType<MpvObject>("com.stremio.libmpv", 1, 0, "MpvObject");
     qmlRegisterType<RazerChroma>("com.stremio.razerchroma", 1, 0, "RazerChroma");
+    qmlRegisterType<Luminati>("com.stremio.luminati", 1, 0, "Luminati");
     qmlRegisterType<ClipboardProxy>("com.stremio.clipboard", 1, 0, "Clipboard");
 
     QQmlApplicationEngine engine;

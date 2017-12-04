@@ -8,6 +8,7 @@ import com.stremio.process 1.0
 import com.stremio.screensaver 1.0
 import com.stremio.libmpv 1.0
 import com.stremio.razerchroma 1.0
+import com.stremio.luminati 1.0
 import com.stremio.clipboard 1.0
 import QtQml 2.2
 import Qt.labs.platform 1.0
@@ -126,6 +127,15 @@ ApplicationWindow {
                   text: qsTr("Open in browser")
                   onTriggered: Qt.openUrlExternally("http://127.0.0.1:11470/") // XXX: FIXME: hardcode
               }
+			  // TODO: Remove next two items when finish luminati testing
+              MenuItem {
+                  text: qsTr("Luminati ask")
+                  onTriggered: luminati.askForChoice();
+              }
+              MenuItem {
+                  text: qsTr("Luminati reset choice")
+                  onTriggered: luminati.clearChoice();
+              }
               MenuItem {
                   text: qsTr("Quit")
                   onTriggered: Qt.quit()
@@ -160,6 +170,11 @@ ApplicationWindow {
     // Razer Chroma SDK - highlight player keys
     RazerChroma {
         id: chroma
+    }
+
+    // Luminati DSK
+    Luminati {
+        id: luminati
     }
 
     // Clipboard proxy
@@ -614,5 +629,9 @@ ApplicationWindow {
 
         // Check for updates
         initAutoUpdater()
+
+        //console.log("Current choice", luminati.getChoice());
+		//luminati.askForChoice();
+        //console.log("Asked choice", luminati.getChoice());
     }
 }
