@@ -3,8 +3,8 @@
 Luminati::Luminati(QObject *parent) : QObject(parent) {
 #ifdef _WIN32
 	//lum_sdk_uninit();
-	lum_sdk_set_logo_link((char *)"http://luminati.io/img/logo.png");
-	lum_sdk_set_tos_link((char *)"https://hola.org/legal/sla");
+	lum_sdk_set_logo_link((char *)"http://www.strem.io/4.0/stremio-logo-small.png");
+	lum_sdk_set_tos_link((char *)"https://www.strem.io/tos");
 	lum_sdk_set_bg_color((char *)"#ffffffff");
 	lum_sdk_set_btn_color((char *)"#ff323232");
 	lum_sdk_set_txt_color((char *)"#ff000000");
