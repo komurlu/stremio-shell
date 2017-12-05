@@ -8,7 +8,6 @@ import com.stremio.process 1.0
 import com.stremio.screensaver 1.0
 import com.stremio.libmpv 1.0
 import com.stremio.razerchroma 1.0
-import com.stremio.luminati 1.0
 import com.stremio.clipboard 1.0
 import QtQml 2.2
 import Qt.labs.platform 1.0
@@ -170,11 +169,6 @@ ApplicationWindow {
     // Razer Chroma SDK - highlight player keys
     RazerChroma {
         id: chroma
-    }
-
-    // Luminati DSK
-    Luminati {
-        id: luminati
     }
 
     // Clipboard proxy
@@ -608,6 +602,9 @@ ApplicationWindow {
         onTriggered: function() { } // empty, set if auto-updater is enabled in initAutoUpdater()
     }
 
+	function onLuminatiChoiceChanged() {
+		console.log( "Luminati signal" );
+	}
     //
     // On complete handler
     //
@@ -629,9 +626,7 @@ ApplicationWindow {
 
         // Check for updates
         initAutoUpdater()
-
-        //console.log("Current choice", luminati.getChoice());
-		//luminati.askForChoice();
-        //console.log("Asked choice", luminati.getChoice());
+		luminati.onChoiceChanged.connect(onLuminatiChoiceChanged);
+        console.log("Current luminati choice", luminati.getChoice());
     }
 }

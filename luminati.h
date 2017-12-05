@@ -12,10 +12,13 @@ class Luminati : public QObject
 	Q_OBJECT
 	public:
 		explicit Luminati(QObject *parent = 0);
-		virtual ~Luminati() {};
-		public slots :
+		virtual ~Luminati();
+	public slots:
 		int getChoice(void);
 		void askForChoice(void);
 		void clearChoice(void);
+		void emitEvent(void);
+	signals:
+		void choiceChanged();
 };
 #endif

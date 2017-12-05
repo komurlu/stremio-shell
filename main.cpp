@@ -31,6 +31,12 @@ typedef QApplication Application;
 
 #include "luminati.h"
 
+Luminati luminati;
+
+void lumChoiceChanged(void) {
+	luminati.emitEvent();
+}
+
 void InitializeParameters(QQmlApplicationEngine& engine, MainApp& app) {
     QQmlContext *ctx = engine.rootContext();
 
@@ -53,6 +59,8 @@ void CrashHandler(){
 
 int main(int argc, char **argv)
 {
+	lum_sdk_set_choice_change_cb((lum_sdk_choice_change_t)&lumChoiceChanged);
+
 	#if defined(DESKTOP) && !defined(QT_DEBUG)
     CrashHandler();
     #endif
@@ -89,12 +97,13 @@ int main(int argc, char **argv)
     qmlRegisterType<ScreenSaver>("com.stremio.screensaver", 1, 0, "ScreenSaver");
     qmlRegisterType<MpvObject>("com.stremio.libmpv", 1, 0, "MpvObject");
     qmlRegisterType<RazerChroma>("com.stremio.razerchroma", 1, 0, "RazerChroma");
-    qmlRegisterType<Luminati>("com.stremio.luminati", 1, 0, "Luminati");
+    //qmlRegisterType<Luminati>("com.stremio.luminati", 1, 0, "Luminati");
     qmlRegisterType<ClipboardProxy>("com.stremio.clipboard", 1, 0, "Clipboard");
 
     QQmlApplicationEngine engine;
     InitializeParameters(engine, app);
     QtWebEngine::initialize();
+	engine.rootContext()->setContextProperty("luminati", &luminati);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     QObject::connect( &app, &SingleApplication::receivedMessage, &app, &MainApp::processMessage );
