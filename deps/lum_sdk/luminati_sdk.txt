@@ -1,0 +1,82 @@
+Luminati SDK integration instructions:
+
+see CHANGELOG for more info on version
+
+files:
+- lum_sdk.dll - c# dll built in AnyCPU mode
+- lum_sdk32.dll - c++/CLR 32bit dll
+- lum_sdk32.lib - link lib for lum_sdk32.dll
+- lum_sdk64.dll - c++/CLR 64bit dll
+- lum_sdk64.lib - link lib for lum_sdk64.dll
+- lum_sdk.h - header file to include in c/c++ binaries (imports with *_c
+  suffix are c-style)
+- lum_sdk.cs - c# class to be used with c# project that need to specifically be
+  built with the c++/CRL dll's and not the c# AnyCPU dll
+- lum_sdk.bas - SDK declaration file for VB6
+- samples - usage samples, see samples/Readme.txt
+
+api (c#):
+- lum_sdk.api.set_app_name(string app_name) - set pretty app name for dialog
+  (e.g. MyApp)
+- lum_sdk.api.set_tos_link(string url) - set Terms of Service link for dialog
+- lum_sdk.api.set_logo_link(string url) - set application logo link for dialog
+
+- lum_sdk.api.set_dlg_size(int size) - set the size (height) of the dialog
+  (between 384-768)
+- lum_sdk.api.set_bg_color(string color) - set background color for dialog
+- lum_sdk.api.set_btn_color(string color) - set button color for dialog (should
+  contrast with background color)
+- lum_sdk.api.set_txt_color(string color) - set text color for dialog
+(color string format "#xxxxxxxx" denote color code to use, format is
+alpha-rgb)
+- lum_sdk.api.set_peer_txt(peer_txt_t e) - set text for peer choice button
+  from peer_txt_t enum
+- lum_sdk.api.set_not_peer_txt(not_peer_txt_t e) - set text for not peer choice
+  button from not_peer_txt_t enum
+- lum_sdk.api.init(string appid) - start Luminati SDK code
+  IMPORTANT: use appid sent to you by Luminati sales (this is the billing id)
+- lum_sdk.api.init_wait(string appid) - start Luminati SDK code and wait until
+  user selection has been made
+- lum_sdk.api.uninit() - stop Luminati SDK code
+
+- int lum_sdk.api.get_choice() - return user selection:
+  - lum_sdk.api.CHOICE_NONE - no selection has been made or has been reset
+  - lum_sdk.api.CHOICE_PEER - SDK is enabled
+  - lum_sdk.api.CHOICE_NOT_PEER - SDK is disabled
+- lum_sdk.api.clear_choice() - reset user selection (call init to show dialog)
+- lum_sdk.api.set_choice_change_cb(Action cb) - register delegate for choice
+  changes
+
+- peer_txt_t enum {NO_ADS, PREMIUM, FREE, DONATE, I_AGREE}
+- not_peer_txt_t enum {ADS, LIMITED, PREMIUM, NO_DONATE, NOT_AGREE, I_DISAGREE}
+
+api (c++): (c api are the same functions with added '_c' suffix)
+- lum_sdk_set_app_name(char *app_name) ->
+      lum_sdk.api.set_app_name(string app_name)
+- lum_sdk_set_tos_link(char *url) -> lum_sdk.api.set_tos_link(string url)
+- lum_sdk_set_logo_link(char *url) -> lum_sdk.api.set_logo_link(string url)
+
+- lum_sdk_set_dlg_size(int size) -> lum_sdk.api.set_dlg_size(int size)
+- lum_sdk_set_bg_color(char *color) -> lum_sdk.api.set_bg_color(string color)
+- lum_sdk_set_btn_color(char *color) -> lum_sdk.api.set_btn_color(string color)
+- lum_sdk_set_txt_color(char *color) -> lum_sdk.api.set_txt_color(string color)
+- lum_sdk_set_peer_txt(peer_txt_t e) ->lum_sdk.api.set_peer_txt(peer_txt_t e)
+- lum_sdk_set_not_peer_txt(not_peer_txt_t e) -> lum_sdk.api.set_not_peer_txt(not_peer_txt_t e)
+
+- lum_sdk_init(char *appid) -> lum_sdk.api.init(string appid)
+- lum_sdk_init_wait(char *appid) -> lum_sdk.api.init_wait(string appid)
+- lum_sdk_uninit() -> lum_sdk.api.uninit()
+
+- int lum_sdk_get_choice() -> int lum_sdk.api.get_choice()
+  - LUM_SDK_CHOICE_NONE -> lum_sdk.api.CHOICE_NONE
+  - LUM_SDK_CHOICE_PEER -> lum_sdk.api.CHOICE_PEER
+  - LUM_SDk_CHOICE_NOT_PEER -> lum_sdk.api.CHOICE_NOT_PEER
+- lum_sdk_clear_choice() -> lum_sdk.api.clear_choice()
+- lum_sdk_set_choice_change_cb(lum_sdk_choice_change_t cb) -> lum_sdk.api.set_choice_change_cb(Action cb)
+  NOTE: choice_change_cb is experimental, callback is called from a different
+  thread, use carefully
+
+- int lum_sdk_is_supported() - return whether machine supports minimum .NET
+  version required to run
+
+See samples for correct usage

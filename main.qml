@@ -603,7 +603,7 @@ ApplicationWindow {
     }
 
 	function onLuminatiChoiceChanged() {
-		console.log( "Luminati signal" );
+		console.log( "Luminati signal", luminati.getChoice() );
 	}
     //
     // On complete handler

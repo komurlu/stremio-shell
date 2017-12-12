@@ -15,7 +15,7 @@ Luminati::Luminati(QObject *parent) : QObject(parent) {
 	lum_sdk_set_peer_txt(PEER_TXT_FREE);
 	lum_sdk_set_not_peer_txt(NOT_PEER_TXT_ADS);
 	lum_sdk_set_app_name((char *)"Stremio");
-	//lum_sdk_init(app_name);
+	lum_sdk_init_wait(app_name);
 #endif
 }
 
@@ -23,7 +23,10 @@ Luminati::~Luminati(void) {
 }
 
 void Luminati::emitEvent(void) {
-	emit choiceChanged();
+	// This check prevents emiting event on choice cleared
+	if (lum_sdk_get_choice() != LUM_SDK_CHOICE_NONE) {
+		emit choiceChanged();
+	}
 }
 
 

@@ -1,0 +1,50 @@
+Luminati SDK for Windows CHANGELOG
+
+## 1.73.852
+- fix crash related to clear_choice (deadlock)
+- fix call notify on first init when selection exists
+- fix calling clear_choice before/without init first
+- fix microsoft.threading.tasks.dll loading path
+- allow notify on threads with Dispatcher without synchronizationcontext
+- change console sample to use init_wait
+
+## 1.73.383
+- upgrade sdk to .NET 4.0
+- add Russian translation
+- fix assembly info
+- add .NET 4.0 support detection for native dll
+- adjust dialog button width to content
+- fix crash non-protected access to Process
+- add lum_sdk_is_supported api for non-managed applications
+- fix crash loading Microsoft.Threading.Tasks.dll
+- add lum_sdk_init_wait api to wait on init until user seletion is made
+- add lum_sdk_set_choice_change_cb api for setting callback function on choice
+  changes
+
+## 1.68.308
+- fix handling of stdio vs. core svc causing crashes
+
+## 1.68.5
+- fix core svc stuck due to invalid stderr
+- fix core svc crashes on exit (double fd close and null g_conf set)
+- add text options enum for peer/not-peer button text
+- change all dialog text to come from resource (currenty only en-US culture)
+- add strong name signing to all libraries
+
+## 1.66.452
+- fixed crash on network down
+
+## 1.66.164
+- api now to exports stdcall instead of cdecl (support non-C languages)
+- improved logging to track bugs
+- add import declaration for VB6 (lum_sdk.bas)
+
+## 1.63.567
+- fixed lum_sdk.dll (C#) missing export of lum_sdk_set_dlg_size
+- fixed invalid dialog width on first load
+
+## 1.63.247
+- First (wide) release version
+- lum_sdk(32|64).dll is now a native non-managed dll (/MT)
+- msvcr120.dll required to run managed part of sdk is now embedded in dll
+- dialog size can now be controled using lum_sdk_set_dlg_size api
