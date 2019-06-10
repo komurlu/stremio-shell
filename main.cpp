@@ -55,6 +55,7 @@ int main(int argc, char **argv)
     // This is really broken on Linux
     #ifndef Q_OS_LINUX
     Application::setAttribute(Qt::AA_EnableHighDpiScaling);
+    //TODO test if this works https://stackoverflow.com/questions/55407849/changing-qt-scale-factor
     #endif
 
     Application::setApplicationName("Stremio");
