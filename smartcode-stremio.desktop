@@ -2,7 +2,7 @@
 Version=1.0
 Name=Stremio
 Comment=Video organizer for your Movies, TV Shows and TV Channels
-Exec=stremio %U
+Exec=env QT_SCALE_FACTOR=1.5 stremio %U
 Icon=smartcode-stremio
 Terminal=false
 Type=Application
